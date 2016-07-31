@@ -216,7 +216,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2016/07/31/firstblog/">firstblog</a>
+      <a class="article-title" href="/2016/07/31/firstblog/">使用Ubuntu 新建vpn过程</a>
     </h1>
   
 
@@ -225,7 +225,16 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <p>1、更新软件源<br>     sudo apt-get update</p>
+<p>2、安装pip<br>   sudo apt-get install python-pip</p>
+<p>3、安装shadowsocks<br>   sudo pip install shadowsocks</p>
+<p>4、运行shadowsocks<br>   sudo ssserver -p 8388 -k  password -m aes-256-cfb -d start</p>
+<p>  #ssserver -p 服务器端口 -k 密码 -m 加密方法 -m  加密协议  -d 后台运行</p>
+<p>5、停止运行<br>     sudo ssserver  -d  stop</p>
+<p>   #查询日志<br>   sudo less/more /var/log/shadowsocks.log<br>   sudo tail -f  /var/log/shadowsocks.log</p>
+<p>6、下载shadowsocks地址：<br>       <a href="http://www.ishadowsocks.org/" target="_blank" rel="external">http://www.ishadowsocks.org/</a></p>
+<p>7、digitalocean官网：<br>     <a href="https://m.do.co/c/c038014ec8a1" target="_blank" rel="external">https://m.do.co/c/c038014ec8a1</a>   通过此链接可以免费领取10美元费用，相当于免费使用2个月的vps，亲测可用</p>
+
       
     </div>
     

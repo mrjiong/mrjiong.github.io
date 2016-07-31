@@ -4,15 +4,27 @@
   <meta charset="utf-8">
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>firstblog | lieque</title>
+  <title>使用Ubuntu 新建vpn过程 | lieque</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="article">
-<meta property="og:title" content="firstblog">
+  <meta name="description" content="1、更新软件源     sudo apt-get update
+2、安装pip   sudo apt-get install python-pip
+3、安装shadowsocks   sudo pip install shadowsocks
+4、运行shadowsocks   sudo ssserver -p 8388 -k  password -m aes-256-cfb -d start">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用Ubuntu 新建vpn过程">
 <meta property="og:url" content="http://yoursite.com/2016/07/31/firstblog/index.html">
 <meta property="og:site_name" content="lieque">
-<meta property="og:updated_time" content="2016-07-31T03:40:31.000Z">
+<meta property="og:description" content="1、更新软件源     sudo apt-get update
+2、安装pip   sudo apt-get install python-pip
+3、安装shadowsocks   sudo pip install shadowsocks
+4、运行shadowsocks   sudo ssserver -p 8388 -k  password -m aes-256-cfb -d start">
+<meta property="og:updated_time" content="2016-07-31T06:05:18.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="firstblog">
+<meta name="twitter:title" content="使用Ubuntu 新建vpn过程">
+<meta name="twitter:description" content="1、更新软件源     sudo apt-get update
+2、安装pip   sudo apt-get install python-pip
+3、安装shadowsocks   sudo pip install shadowsocks
+4、运行shadowsocks   sudo ssserver -p 8388 -k  password -m aes-256-cfb -d start">
   
     <link rel="alternative" href="/atom.xml" title="lieque" type="application/atom+xml">
   
@@ -215,7 +227,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      firstblog
+      使用Ubuntu 新建vpn过程
     </h1>
   
 
@@ -231,7 +243,16 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <p>1、更新软件源<br>     sudo apt-get update</p>
+<p>2、安装pip<br>   sudo apt-get install python-pip</p>
+<p>3、安装shadowsocks<br>   sudo pip install shadowsocks</p>
+<p>4、运行shadowsocks<br>   sudo ssserver -p 8388 -k  password -m aes-256-cfb -d start</p>
+<p>  #ssserver -p 服务器端口 -k 密码 -m 加密方法 -m  加密协议  -d 后台运行</p>
+<p>5、停止运行<br>     sudo ssserver  -d  stop</p>
+<p>   #查询日志<br>   sudo less/more /var/log/shadowsocks.log<br>   sudo tail -f  /var/log/shadowsocks.log</p>
+<p>6、下载shadowsocks地址：<br>       <a href="http://www.ishadowsocks.org/" target="_blank" rel="external">http://www.ishadowsocks.org/</a></p>
+<p>7、digitalocean官网：<br>     <a href="https://m.do.co/c/c038014ec8a1" target="_blank" rel="external">https://m.do.co/c/c038014ec8a1</a>   通过此链接可以免费领取10美元费用，相当于免费使用2个月的vps，亲测可用</p>
+
       
     </div>
     
@@ -267,7 +288,7 @@
 
   <section id="comments">
     <!-- 多说评论框 start -->
-    <div class="ds-thread" data-thread-key="post-firstblog" data-title="firstblog" data-url="http://yoursite.com/2016/07/31/firstblog/"></div>
+    <div class="ds-thread" data-thread-key="post-firstblog" data-title="使用Ubuntu 新建vpn过程" data-url="http://yoursite.com/2016/07/31/firstblog/"></div>
     <!-- 多说评论框 end -->
     <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
     <script type="text/javascript">
