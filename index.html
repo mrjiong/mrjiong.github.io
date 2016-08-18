@@ -76,7 +76,7 @@
 						<li>Links</li>
 						
 						
-						<li>Über</li>
+						<li>About</li>
 						
 					</ul>
 				</div>
@@ -225,11 +225,13 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>[toc]</p>
+        <h1 id="Git使用心得"><a href="#Git使用心得" class="headerlink" title="Git使用心得"></a>Git使用心得</h1><p>标签（空格分隔）： 未分类</p>
+<hr>
+<p>[toc]</p>
 <h3 id="1-安装Git"><a href="#1-安装Git" class="headerlink" title="1.安装Git"></a>1.安装Git</h3><p>Git之前是在linux上开发的，所以很长一段时间只能在linux上跑，现在也有了Windows版本的Git。</p>
-<p><strong>在Linux上安装Git</strong><br>首先，你可以试着输入git，看看系统有没有安装Git：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ git</div><div class="line">The program &apos;git&apos; is currently not installed. You can install it by typing:</div><div class="line">sudo apt-get install git</div></pre></td></tr></table></figure></p>
+<p><strong>在Linux上安装Git</strong><br>首先，你可以试着输入git，看看系统有没有安装Git：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ git</div><div class="line">The program <span class="string">'git'</span> is currently not installed. You can install it by typing:</div><div class="line">sudo apt-get install git</div></pre></td></tr></table></figure></p>
 <p>上面代码即是没有安装以及如何安装的意思。<br>Ubuntu linux或者debain，命令如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install git</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo apt-get install git</div></pre></td></tr></table></figure>
 <p>如果是其他Linux版本，可以直接通过源码安装。先从Git官网下载源码，然后解压，依次输入：./config，make，sudo make install这几个命令安装就好了。<br><strong>在Mac OS X上安装Git</strong></p>
 <p>Mac os X上有两种方式，如下：</p>
 <ol>
@@ -237,7 +239,7 @@
 <li>第二种简单，直接从AppStore安装Xcode，Xcode集成了GIt，不过默认没装，你需要运行Xcode，菜单“Xcode”-&gt;“Preferences”，在弹出窗口中找到“Downloads”，选择“Command Line Tools”，点“Install”就可以完成安装了。xcode是免费的，功能相当强大。</li>
 </ol>
 <p><strong>在Mac OS X上安装Git</strong><br>本人不喜欢用Windows开发，如果不是情势所逼，不推荐windows作为开发环境。windows下安装的话，直接到官网下载<a href="https://git-for-windows.github.io下载，然后默认安装即可。安装完成后，使用Git-&gt;Git" target="_blank" rel="external">https://git-for-windows.github.io下载，然后默认安装即可。安装完成后，使用Git-&gt;Git</a> Bash，跳出一个命令行窗口，说明安装成功。</p>
-<p>安装完成，还需要配置，在命令行输入：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ git config --global user.name &quot;Your Name&quot;</div><div class="line">$ git config --global user.email &quot;email@example.com&quot;</div></pre></td></tr></table></figure></p>
+<p>安装完成，还需要配置，在命令行输入：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ git config --global user.name <span class="string">"Your Name"</span></div><div class="line">$ git config --global user.email <span class="string">"email@example.com"</span></div></pre></td></tr></table></figure></p>
 <p>注意git config命令的–global参数，使用这个菜蔬，表示你这台机器上所有的Git仓库都会使用这个配置，当然也可以对某个仓库指定不同的用户名和Email地址。</p>
 <p>未完待续</p>
 
