@@ -7,7 +7,7 @@
 <head>
   <meta charset="utf-8">
   
-  <title>git 使用心得 | lieque</title>
+  <title>http请求缓存机制 | lieque</title>
 
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -15,19 +15,22 @@
     <meta name="keywords" content="forsigner,前端,设计,Hexo主题,前端开发,用户体验,设计,frontend,design,nodejs,JavaScript" />
   
 
-  <meta name="description" content="1.安装GitGit之前是在linux上开发的，所以很长一段时间只能在linux上跑，现在也有了Windows版本的Git。
-在Linux上安装Git首先，你可以试着输入git，看看系统有没有安装Git：123$ gitThe program &apos;git&apos; is currently not installed. You can install it by typing:sudo apt-get in">
+  <meta name="description" content="摘要：在前端开发过程中，我们可能会经常遇到浏览器缓存的问题。本文详细介绍浏览器缓存机制，帮助读者更深层次的理解浏览器缓存。
+
+Cache">
 <meta property="og:type" content="article">
-<meta property="og:title" content="git 使用心得">
-<meta property="og:url" content="http://yoursite.com/2016/08/03/gitLearning/index.html">
+<meta property="og:title" content="http请求缓存机制">
+<meta property="og:url" content="http://yoursite.com/2016/08/01/http请求缓存机制/index.html">
 <meta property="og:site_name" content="lieque">
-<meta property="og:description" content="1.安装GitGit之前是在linux上开发的，所以很长一段时间只能在linux上跑，现在也有了Windows版本的Git。
-在Linux上安装Git首先，你可以试着输入git，看看系统有没有安装Git：123$ gitThe program &apos;git&apos; is currently not installed. You can install it by typing:sudo apt-get in">
-<meta property="og:updated_time" content="2016-08-18T13:33:25.000Z">
+<meta property="og:description" content="摘要：在前端开发过程中，我们可能会经常遇到浏览器缓存的问题。本文详细介绍浏览器缓存机制，帮助读者更深层次的理解浏览器缓存。
+
+Cache">
+<meta property="og:updated_time" content="2016-12-29T10:08:11.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="git 使用心得">
-<meta name="twitter:description" content="1.安装GitGit之前是在linux上开发的，所以很长一段时间只能在linux上跑，现在也有了Windows版本的Git。
-在Linux上安装Git首先，你可以试着输入git，看看系统有没有安装Git：123$ gitThe program &apos;git&apos; is currently not installed. You can install it by typing:sudo apt-get in">
+<meta name="twitter:title" content="http请求缓存机制">
+<meta name="twitter:description" content="摘要：在前端开发过程中，我们可能会经常遇到浏览器缓存的问题。本文详细介绍浏览器缓存机制，帮助读者更深层次的理解浏览器缓存。
+
+Cache">
 
   
 
@@ -85,7 +88,7 @@
       
         <li class="item-toolbox">
           <a
-            class="CIRCLE"
+            class="ROUND_RECT"
             href="/archives/"
             rel="noopener noreferrer"
             target="_self"
@@ -96,7 +99,7 @@
       
         <li class="item-toolbox">
           <a
-            class="CIRCLE"
+            class="ROUND_RECT"
             href="/category/"
             rel="noopener noreferrer"
             target="_self"
@@ -107,7 +110,7 @@
       
         <li class="item-toolbox">
           <a
-            class="CIRCLE"
+            class="ROUND_RECT"
             href="/tag/"
             rel="noopener noreferrer"
             target="_self"
@@ -118,7 +121,7 @@
       
         <li class="item-toolbox">
           <a
-            class="CIRCLE"
+            class="ROUND_RECT"
             href="/link/"
             rel="noopener noreferrer"
             target="_self"
@@ -129,7 +132,7 @@
       
         <li class="item-toolbox">
           <a
-            class="CIRCLE"
+            class="ROUND_RECT"
             href="/about/"
             rel="noopener noreferrer"
             target="_self"
@@ -140,7 +143,7 @@
       
         <li class="item-toolbox">
           <a
-            class="CIRCLE"
+            class="ROUND_RECT"
             href="/atom.xml"
             rel="noopener noreferrer"
             target="_blank"
@@ -151,7 +154,7 @@
       
         <li class="item-toolbox">
           <a
-            class="CIRCLE"
+            class="ROUND_RECT"
             href="/search/"
             rel="noopener noreferrer"
             target="_self"
@@ -167,22 +170,17 @@
 </div>
 
 
-  <div id="toc" class="toc-article">
-    <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-安装Git"><span class="toc-text">1.安装Git</span></a></li></ol>
-  </div>
-
 
 
 <div class="content content-post CENTER">
-   <article id="post-gitLearning" class="article article-type-post" itemprop="blogPost">
+   <article id="post-http请求缓存机制" class="article article-type-post" itemprop="blogPost">
   <header class="article-header">
-    <h1 class="post-title">git 使用心得</h1>
+    <h1 class="post-title">http请求缓存机制</h1>
 
     <div class="article-meta">
       <span>
         <i class="icon-calendar"></i>
-        <span>2016.08.03</span>
+        <span>2016.08.01</span>
       </span>
 
       
@@ -198,7 +196,7 @@
       
         <span>
           <i class="icon-comment"></i>
-          <a href="http://www.forsigner.com/2016/08/03/gitLearning/#disqus_thread"></a>
+          <a href="http://www.forsigner.com/2016/08/01/http请求缓存机制/#disqus_thread"></a>
         </span>
       
 
@@ -212,7 +210,7 @@
 
       
         <i class="icon-comment"></i> 
-        <span class="ds-thread-count" data-thread-key="post-gitLearning"><i class="fa fa-spinner fa-spin"></i></span> 条评论
+        <span class="ds-thread-count" data-thread-key="post-http请求缓存机制"><i class="fa fa-spinner fa-spin"></i></span> 条评论
       
       
     </div>
@@ -220,20 +218,11 @@
 
   <div class="article-content">
     
-      <h3 id="1-安装Git"><a href="#1-安装Git" class="headerlink" title="1.安装Git"></a>1.安装Git</h3><p>Git之前是在linux上开发的，所以很长一段时间只能在linux上跑，现在也有了Windows版本的Git。</p>
-<p><strong>在Linux上安装Git</strong><br>首先，你可以试着输入git，看看系统有没有安装Git：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ git</div><div class="line">The program <span class="string">'git'</span> is currently not installed. You can install it by typing:</div><div class="line">sudo apt-get install git</div></pre></td></tr></table></figure></p>
-<p>上面代码即是没有安装以及如何安装的意思。<br>Ubuntu linux或者debain，命令如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo apt-get install git</div></pre></td></tr></table></figure>
-<p>如果是其他Linux版本，可以直接通过源码安装。先从Git官网下载源码，然后解压，依次输入：./config，make，sudo make install这几个命令安装就好了。<br><strong>在Mac OS X上安装Git</strong></p>
-<p>Mac os X上有两种方式，如下：</p>
-<ol>
-<li>homebrew，安装homebrew，然后通过homebrew一键搞定，具体参考文档：<a href="http://brew.sh/" target="_blank" rel="external">http://brew.sh/</a></li>
-<li>第二种简单，直接从AppStore安装Xcode，Xcode集成了GIt，不过默认没装，你需要运行Xcode，菜单“Xcode”-&gt;“Preferences”，在弹出窗口中找到“Downloads”，选择“Command Line Tools”，点“Install”就可以完成安装了。xcode是免费的，功能相当强大。</li>
-</ol>
-<p><strong>在Mac OS X上安装Git</strong><br>本人不喜欢用Windows开发，如果不是情势所逼，不推荐windows作为开发环境。windows下安装的话，直接到官网下载 <a href="https://git-for-windows.github.io" target="_blank" rel="external">https://git-for-windows.github.io</a> 下载，然后默认安装即可。安装完成后，使用Git-&gt;Git Bash，跳出一个命令行窗口，说明安装成功。</p>
-<p>安装完成，还需要配置，在命令行输入：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ git config --global user.name <span class="string">"Your Name"</span></div><div class="line">$ git config --global user.email <span class="string">"email@example.com"</span></div></pre></td></tr></table></figure></p>
-<p>注意git config命令的–global参数，使用这个菜蔬，表示你这台机器上所有的Git仓库都会使用这个配置，当然也可以对某个仓库指定不同的用户名和Email地址。</p>
-<p>未完待续</p>
+      <hr>
+<blockquote>
+<p>摘要：在前端开发过程中，我们可能会经常遇到浏览器缓存的问题。本文详细介绍浏览器缓存机制，帮助读者更深层次的理解浏览器缓存。</p>
+</blockquote>
+<p>Cache</p>
 
     
   </div>
@@ -264,10 +253,10 @@
 
    
   <div class="box-prev-next clearfix">
-    <a class="show pull-left" href="/2016/08/01/httpCache/">
+    <a class="show pull-left" href="/2016/07/31/使用Ubuntu新建vpn过程/">
         <i class="icon icon-angle-left"></i>
     </a>
-    <a class="hide pull-right" href="/">
+    <a class="show pull-right" href="/2016/08/03/git使用心得/">
         <i class="icon icon-angle-right"></i>
     </a>
   </div>
@@ -297,7 +286,7 @@
         
           <li class="item-toolbox">
             <a
-              class="CIRCLE"
+              class="ROUND_RECT"
               href="/archives/"
               rel="noopener noreferrer"
               target="_self"
@@ -308,7 +297,7 @@
         
           <li class="item-toolbox">
             <a
-              class="CIRCLE"
+              class="ROUND_RECT"
               href="/category/"
               rel="noopener noreferrer"
               target="_self"
@@ -319,7 +308,7 @@
         
           <li class="item-toolbox">
             <a
-              class="CIRCLE"
+              class="ROUND_RECT"
               href="/tag/"
               rel="noopener noreferrer"
               target="_self"
@@ -330,7 +319,7 @@
         
           <li class="item-toolbox">
             <a
-              class="CIRCLE"
+              class="ROUND_RECT"
               href="/link/"
               rel="noopener noreferrer"
               target="_self"
@@ -341,7 +330,7 @@
         
           <li class="item-toolbox">
             <a
-              class="CIRCLE"
+              class="ROUND_RECT"
               href="/about/"
               rel="noopener noreferrer"
               target="_self"
@@ -352,7 +341,7 @@
         
           <li class="item-toolbox">
             <a
-              class="CIRCLE"
+              class="ROUND_RECT"
               href="/atom.xml"
               rel="noopener noreferrer"
               target="_blank"
@@ -363,7 +352,7 @@
         
           <li class="item-toolbox">
             <a
-              class="CIRCLE"
+              class="ROUND_RECT"
               href="/search/"
               rel="noopener noreferrer"
               target="_self"
@@ -392,7 +381,7 @@
   <script>
     var disqus_shortname = 'forsigner';
     
-    var disqus_url = 'http://yoursite.com/2016/08/03/gitLearning/';
+    var disqus_url = 'http://yoursite.com/2016/08/01/http请求缓存机制/';
     
     (function(){
       var dsq = document.createElement('script');
@@ -410,8 +399,8 @@
     
   <section class="duoshuo-comments">
     <!-- 多说评论框 start -->
-    <div class="ds-thread" data-thread-key="post-gitLearning" 
-      data-title="git 使用心得" data-url="http://yoursite.com/2016/08/03/gitLearning/index.html"></div>
+    <div class="ds-thread" data-thread-key="post-http请求缓存机制" 
+      data-title="http请求缓存机制" data-url="http://yoursite.com/2016/08/01/http请求缓存机制/index.html"></div>
     <!-- 多说评论框 end -->
   </section>
 
