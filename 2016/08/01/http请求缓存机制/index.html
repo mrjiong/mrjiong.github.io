@@ -12,25 +12,46 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
   
-    <meta name="keywords" content="forsigner,前端,设计,Hexo主题,前端开发,用户体验,设计,frontend,design,nodejs,JavaScript" />
+    <meta name="keywords" content="缓存," />
   
 
   <meta name="description" content="摘要：在前端开发过程中，我们可能会经常遇到浏览器缓存的问题。本文详细介绍浏览器缓存机制，帮助读者更深层次的理解浏览器缓存。
 
-Cache">
+缓存是着存储指定资源的一份拷贝，并在下次请求该资源时提供该拷贝的技术。缓存大致可归为两类：私有与共享缓存。
+
+共享缓存存储的数据可以被多用户使用，例如架设web代理
+私有缓存只能用于单独用户，就是本地数据
+
+关键字
+no-cache：浏览器和缓存服务器都不应该缓存页面信">
 <meta property="og:type" content="article">
 <meta property="og:title" content="http请求缓存机制">
 <meta property="og:url" content="http://yoursite.com/2016/08/01/http请求缓存机制/index.html">
 <meta property="og:site_name" content="lieque">
 <meta property="og:description" content="摘要：在前端开发过程中，我们可能会经常遇到浏览器缓存的问题。本文详细介绍浏览器缓存机制，帮助读者更深层次的理解浏览器缓存。
 
-Cache">
-<meta property="og:updated_time" content="2016-12-29T10:08:11.000Z">
+缓存是着存储指定资源的一份拷贝，并在下次请求该资源时提供该拷贝的技术。缓存大致可归为两类：私有与共享缓存。
+
+共享缓存存储的数据可以被多用户使用，例如架设web代理
+私有缓存只能用于单独用户，就是本地数据
+
+关键字
+no-cache：浏览器和缓存服务器都不应该缓存页面信">
+<meta property="og:image" content="https://mdn.mozillademos.org/files/13771/HTTPStaleness.png">
+<meta property="og:image" content="https://mdn.mozillademos.org/files/13779/HTTPRevved.png">
+<meta property="og:updated_time" content="2017-01-20T02:13:42.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="http请求缓存机制">
 <meta name="twitter:description" content="摘要：在前端开发过程中，我们可能会经常遇到浏览器缓存的问题。本文详细介绍浏览器缓存机制，帮助读者更深层次的理解浏览器缓存。
 
-Cache">
+缓存是着存储指定资源的一份拷贝，并在下次请求该资源时提供该拷贝的技术。缓存大致可归为两类：私有与共享缓存。
+
+共享缓存存储的数据可以被多用户使用，例如架设web代理
+私有缓存只能用于单独用户，就是本地数据
+
+关键字
+no-cache：浏览器和缓存服务器都不应该缓存页面信">
+<meta name="twitter:image" content="https://mdn.mozillademos.org/files/13771/HTTPStaleness.png">
 
   
 
@@ -170,6 +191,11 @@ Cache">
 </div>
 
 
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#关键字"><span class="toc-text">关键字</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#缓存目标"><span class="toc-text">缓存目标</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#控制缓存"><span class="toc-text">控制缓存</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#cache-control控制头"><span class="toc-text">cache-control控制头</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#请求信息完全不存"><span class="toc-text">请求信息完全不存</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#不缓存"><span class="toc-text">不缓存</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#私有公有缓存"><span class="toc-text">私有公有缓存</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Expiration"><span class="toc-text">Expiration</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Pragma头"><span class="toc-text">Pragma头</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#缓存更新机制"><span class="toc-text">缓存更新机制</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#加速资源"><span class="toc-text">加速资源</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#cache验证"><span class="toc-text">cache验证</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Etag"><span class="toc-text">Etag</span></a></li></ol>
+  </div>
+
 
 
 <div class="content content-post CENTER">
@@ -196,7 +222,7 @@ Cache">
       
         <span>
           <i class="icon-comment"></i>
-          <a href="http://www.forsigner.com/2016/08/01/http请求缓存机制/#disqus_thread"></a>
+          <a href="http://lieque.me/2016/08/01/http请求缓存机制/#disqus_thread"></a>
         </span>
       
 
@@ -222,7 +248,51 @@ Cache">
 <blockquote>
 <p>摘要：在前端开发过程中，我们可能会经常遇到浏览器缓存的问题。本文详细介绍浏览器缓存机制，帮助读者更深层次的理解浏览器缓存。</p>
 </blockquote>
-<p>Cache</p>
+<p>缓存是着存储指定资源的一份拷贝，并在下次请求该资源时提供该拷贝的技术。缓存大致可归为两类：私有与共享缓存。</p>
+<ul>
+<li>共享缓存存储的数据可以被多用户使用，例如架设web代理</li>
+<li>私有缓存只能用于单独用户，就是本地数据</li>
+</ul>
+<h3 id="关键字"><a href="#关键字" class="headerlink" title="关键字"></a>关键字</h3><ul>
+<li>no-cache：浏览器和缓存服务器都不应该缓存页面信息；</li>
+<li>public：浏览器和缓存服务器都可以缓存页面信息；</li>
+<li>no-store：请求和响应的信息都不应该被存储在对方的磁盘系统中；</li>
+<li>must-revalidate：对于客户机的每次请求，代理服务器必须想服务器验证缓存是否过时</li>
+<li>Last-Modified： 只页面的最后生成时间，GMT格式</li>
+<li>Expires： 过时期限值，GMT格式，指浏览器或缓存服务器在该时间点后必须从真正的服务器中获取新的页面信息</li>
+</ul>
+<h3 id="缓存目标"><a href="#缓存目标" class="headerlink" title="缓存目标"></a>缓存目标</h3><p>常见的HTTP缓存只能存储GET响应，对于其他类型的响应无能为力。<br>缓存的形式：</p>
+<ul>
+<li>成功响应： 200（ok），GET请求成功状态，包括html、imges、files</li>
+<li>永久重定向： 301响应（永久移动，Moved Permanently）</li>
+<li>错误响应： 404响应（not found）</li>
+<li>不完整的响应： 206响应（Partial Content）</li>
+<li>除了响应的其他适合缓存的内容</li>
+</ul>
+<h2 id="控制缓存"><a href="#控制缓存" class="headerlink" title="控制缓存"></a>控制缓存</h2><h3 id="cache-control控制头"><a href="#cache-control控制头" class="headerlink" title="cache-control控制头"></a>cache-control控制头</h3><p> HTTP/1.1中的应用头，使用不同指令定义缓存策略</p>
+<h4 id="请求信息完全不存"><a href="#请求信息完全不存" class="headerlink" title="请求信息完全不存"></a>请求信息完全不存</h4><p>浏览器不存储服务器返回的内容，每次请求都走服务器。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Cache-Control: no-store</div><div class="line">Cache-Control: no-cache, no-store, must-revalidate</div></pre></td></tr></table></figure>
+<h4 id="不缓存"><a href="#不缓存" class="headerlink" title="不缓存"></a>不缓存</h4><p>缓存会向原始服务器发送请求验证，在发布缓存备份之前</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Cache-Control: no-cache</div></pre></td></tr></table></figure>
+<h4 id="私有公有缓存"><a href="#私有公有缓存" class="headerlink" title="私有公有缓存"></a>私有公有缓存</h4><p>公有指令显示所有响应都有缓存，这个很有用，如果那些有http验证或者响应状态不能正常缓存，现在都能够缓存了。相反，私有指令表示只针对单独用户的响应不能共享缓存。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Cache-Control: private</div><div class="line">Cache-Control: public</div></pre></td></tr></table></figure>
+<h4 id="Expiration"><a href="#Expiration" class="headerlink" title="Expiration"></a>Expiration</h4><p>这里最重要的指令是“max-age=<seconds>”，它表示缓存的最长生命周期。相对于Expires，这个指令是相对于请求的时间。对于应用中的静态文件可以增加强制缓存，包括图片、css文件和js文件。</seconds></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Cache-Control: max-age=31536000</div></pre></td></tr></table></figure>
+<h3 id="Pragma头"><a href="#Pragma头" class="headerlink" title="Pragma头"></a>Pragma头</h3><p>Pragma是HTTP/1.0的应用头，它没有指定http响应，因此在HTTP/1.1中没有一个可用的以及可替换Cache-Control头，尽管他跟Cache-Control: no-cache功能相似。一般使用Pragma头来兼容HTTP/1.0客户端。</p>
+<h2 id="缓存更新机制"><a href="#缓存更新机制" class="headerlink" title="缓存更新机制"></a>缓存更新机制</h2><p>一旦资源被缓存，他理论上是可以一直缓存。缓存存储空间有限，所以有些资源需要从存储中移除，这个叫做缓存回收。另外，一些资源可能变更，所以资源也需要更新。因为HTTP是cs协议，一旦资源变更服务端无法接触缓存和客户端，所以需要传递资源的过期时间。回收算法给予未过期资源权限高于过期资源。当缓存接收到过期资源，他会转发具有 If-None-Match头的请求，如果这个资源已经不再是有效资源。如果这样，服务端会返回304头（Not Modified），不再发送资源，进而节省了带宽。</p>
+<p><img src="https://mdn.mozillademos.org/files/13771/HTTPStaleness.png" alt="image"></p>
+<h3 id="加速资源"><a href="#加速资源" class="headerlink" title="加速资源"></a>加速资源</h3><p>以某种方式不频繁更新文件名称：在url，通常是在文件名里，增加版本信息。</p>
+<p> <img src="https://mdn.mozillademos.org/files/13779/HTTPRevved.png" alt="image"></p>
+<h2 id="cache验证"><a href="#cache验证" class="headerlink" title="cache验证"></a>cache验证</h2><p>当用户按下重新加载的按钮就触发cache的重新生效。如果http头包括Cache-control: must-revalidate，正常浏览网页也可以触发重新生效。也可以在浏览器配置中设置强制缓存是否生效。</p>
+<h3 id="Etag"><a href="#Etag" class="headerlink" title="Etag"></a>Etag</h3><p>HTTP协议规格说明定义ETag为“被请求变量的实体值”，另一种说法是，ETag是一个可以与Web资源关联的记号（token）。典型的Web资源可以一个Web页，但也可能是JSON或XML文档。</p>
+<p>实例讲解：<br>想必有不少用户经常订阅大虾们的RSS，大虾们更新博客的速度应该是没有那么快，一天一更已经是高产，所以就有可能好几天都没有更新，这时候如果每次刷新RSS订阅的时候都去服务端重新获取内容，如果体量一大，服务端压力就会很大，此时就可以用Etag来做。</p>
+<ol>
+<li><p>每次用户订阅的时候，首次订阅服务端返回200，并发回网页内容，在http响应头中有etag消息头，此时我们不需要关心这个值到底什么意思，记录下来。</p>
+</li>
+<li><p>然后我们再次刷新页面，把获取到的etag值放到请求头的If-None-Match字段里。</p>
+</li>
+<li>服务器拿到这个请求的话，首先去判断请求头的If-None-Match字段是否与服务端的Etag值相等，如果服务端则认为客户端有最新的缓存，则发回一个304（Not modified）响应。如果比较值不相同，则把最新的RSS内容返回给客户端，相应的Etag值也变更了。</li>
+</ol>
 
     
   </div>
@@ -234,15 +304,15 @@ Cache">
     <div class="inner-donation">
       <span class="btn-donation">支持一下</span>
       <div class="donation-body">
-        <div class="tip text-center">扫一扫，支持forsigner</div>
+        <div class="tip text-center">扫一扫，支持lieque</div>
         <ul class="theme.donation.items.length">
         
           <li class="item">
-            <img src="/images/qr-wechat.png" alt="">
+            <img src="http://oixxlw0bj.bkt.clouddn.com/2.pic.jpg" alt="">
           </li>
         
           <li class="item">
-            <img src="/images/qr-alipay.png" alt="">
+            <img src="http://oixxlw0bj.bkt.clouddn.com/3.pic.png" alt="">
           </li>
         
         </ul>
@@ -379,7 +449,7 @@ Cache">
   </section>
 
   <script>
-    var disqus_shortname = 'forsigner';
+    var disqus_shortname = 'lieque';
     
     var disqus_url = 'http://yoursite.com/2016/08/01/http请求缓存机制/';
     
@@ -392,7 +462,7 @@ Cache">
     })();
   </script>
 
-  <script id="dsq-count-scr" src="//forsigner.disqus.com/count.js" async></script>
+  <script id="dsq-count-scr" src="//lieque.disqus.com/count.js" async></script>
 
 
 
