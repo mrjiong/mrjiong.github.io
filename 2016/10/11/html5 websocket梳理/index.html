@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>html5 websocket梳理 | lieque</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="html5,http," />
+  
+
+  <meta name="description" content="websocket是HTML5新特性中最值得说说的改进。介绍之前先介绍几种HTTP的通信方式
+1 HTTP通信方式
+http是用于文档传输简单同步请求的响应式协议，它是无状态的，半双工
+
+1.1 轮训polling12345// clientvar time = 1000 * x;  // 轮询频率 / mssetInterval(function()&amp;#123;    //ajax &amp;#125">
+<meta property="og:type" content="article">
+<meta property="og:title" content="html5 websocket梳理">
+<meta property="og:url" content="http://yoursite.com/2016/10/11/html5 websocket梳理/index.html">
+<meta property="og:site_name" content="lieque">
+<meta property="og:description" content="websocket是HTML5新特性中最值得说说的改进。介绍之前先介绍几种HTTP的通信方式
+1 HTTP通信方式
+http是用于文档传输简单同步请求的响应式协议，它是无状态的，半双工
+
+1.1 轮训polling12345// clientvar time = 1000 * x;  // 轮询频率 / mssetInterval(function()&amp;#123;    //ajax &amp;#125">
+<meta property="og:image" content="http://note.youdao.com/yws/api/personal/file/WEB1d7603f7dabd184ce67d9f8e74e44039?method=download&shareKey=9d667c0c3b8617cf3eb3e99e55bb2709">
+<meta property="og:updated_time" content="2017-01-21T08:21:39.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="html5 websocket梳理">
+<meta name="twitter:description" content="websocket是HTML5新特性中最值得说说的改进。介绍之前先介绍几种HTTP的通信方式
+1 HTTP通信方式
+http是用于文档传输简单同步请求的响应式协议，它是无状态的，半双工
+
+1.1 轮训polling12345// clientvar time = 1000 * x;  // 轮询频率 / mssetInterval(function()&amp;#123;    //ajax &amp;#125">
+<meta name="twitter:image" content="http://note.youdao.com/yws/api/personal/file/WEB1d7603f7dabd184ce67d9f8e74e44039?method=download&shareKey=9d667c0c3b8617cf3eb3e99e55bb2709">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=07a1c304" rel="stylesheet">
+
+
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?57e94d016e201fba3603a8a2b0263af0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+  
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">导航</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">导航</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/link/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/atom.xml"
+            rel="noopener noreferrer"
+            target="_blank"
+            >
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-HTTP通信方式"><span class="toc-text">1 HTTP通信方式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-轮训polling"><span class="toc-text">1.1 轮训polling</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-长轮训long-polling"><span class="toc-text">1.2 长轮训long polling</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-流化streaming"><span class="toc-text">1.3 流化streaming</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-4-其他"><span class="toc-text">1.4 其他</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-WebSocket"><span class="toc-text">2 WebSocket</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-WebSocket-Protocol"><span class="toc-text">2.1 WebSocket Protocol</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-API"><span class="toc-text">2.2 API</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-1-WebSocket构造"><span class="toc-text">2.2.1  WebSocket构造</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-2-事件"><span class="toc-text">2.2.2 事件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-3-方法"><span class="toc-text">2.2.3 方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-4-状态"><span class="toc-text">2.2.4 状态</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-其他"><span class="toc-text">3 其他</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-html5 websocket梳理" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">html5 websocket梳理</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2016.10.11</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>lieque</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/category/html5/">html5</a>
+  </span>
+
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+        <i class="icon-comment"></i> 
+        <span class="ds-thread-count" data-thread-key="post-html5 websocket梳理"><i class="fa fa-spinner fa-spin"></i></span> 条评论
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <hr>
+<p>websocket是HTML5新特性中最值得说说的改进。介绍之前先介绍几种HTTP的通信方式</p>
+<h2 id="1-HTTP通信方式"><a href="#1-HTTP通信方式" class="headerlink" title="1 HTTP通信方式"></a>1 HTTP通信方式</h2><blockquote>
+<p>http是用于文档传输简单同步请求的响应式协议，它是无状态的，半双工</p>
+</blockquote>
+<h3 id="1-1-轮训polling"><a href="#1-1-轮训polling" class="headerlink" title="1.1 轮训polling"></a>1.1 轮训polling</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">// client</div><div class="line">var time = 1000 * x;  // 轮询频率 / ms</div><div class="line">setInterval(function()&#123;</div><div class="line">    //ajax </div><div class="line">&#125;, time);</div></pre></td></tr></table></figure>
+<p>用定时的方式实现，当时间过短，服务器负担大，产生大量不必要连接消耗，时间过长，信息通知不及时。</p>
+<h3 id="1-2-长轮训long-polling"><a href="#1-2-长轮训long-polling" class="headerlink" title="1.2 长轮训long polling"></a>1.2 长轮训long polling</h3><p>客户端向服务器请求，这个请求在有数据时返回，如果没有数据，请求会一直被挂起，知道有数据或者超时。结束了再次请求。HTTP/1.1之后，浏览器默认连接为长连接( keep-alive )。</p>
+<p><img src="http://note.youdao.com/yws/api/personal/file/WEB1d7603f7dabd184ce67d9f8e74e44039?method=download&amp;shareKey=9d667c0c3b8617cf3eb3e99e55bb2709" alt="image"></p>
+<p>无需第三方插件仅仅依靠长连接维持客户端与服务器交互的技术成为comet或反向Ajax。</p>
+<blockquote>
+<p>对于IE浏览器，同时建立两个长连接之后，第三个HTTP请求会被阻塞。HTTP/1.1规范对长连接有相应规定，不建议建立两个以上长连接。</p>
+</blockquote>
+<h3 id="1-3-流化streaming"><a href="#1-3-流化streaming" class="headerlink" title="1.3 流化streaming"></a>1.3 流化streaming</h3><p>客户端发送一个请求，服务器发送并维护一个持续更新和保持打开的开放响应，除非这个请求超时或者主动关闭，否则服务端会一直把数据推给客户端。</p>
+<p>流化有两种方案：</p>
+<ul>
+<li>第一种是iframe标签，通过在HTML页面添加一个隐藏iframe，把iframe的src属性设置成一个长连接请求，服务器就会一直推数据过来。返回的数据形式就是js的函数调用。</li>
+<li>第二种利用multi-part标志，只有部分浏览器有，因此有局限性。这个字段这里暂时不描述。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">/** 使用 Forever IFrame */</div><div class="line">// client</div><div class="line">&lt;iframe id=&apos;hidden_iframe_polling&apos; name=&apos;hidden_iframe_polling&apos; style=&apos;display:none;&apos; /&gt;</div><div class="line">&lt;script&gt;</div><div class="line">var url=&apos;&apos;;             // 请求地址</div><div class="line">var time = 1000 * x;    // 轮询频率 / ms</div><div class="line">setInterval(function()&#123;</div><div class="line">    document.getElementById(&apos;hidden_iframe_polling&apos;).src = url + &quot;?t=&quot; + new Date();    //时间戳保证每次都是最新请求</div><div class="line">    window.frames[&quot;hidden_iframe_polling&quot;].location.reload();</div><div class="line">&#125;, time);</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">/** 使用 multi-part */</div><div class="line">// client</div><div class="line">var url = &apos;&apos;;                // 请求地址</div><div class="line">var type = &apos;&apos;;               // 请求方式 post / get</div><div class="line">var xhr = new XMLHttpRequest();</div><div class="line">xhr.multipart = true;        // multi-part 标志设置为 true</div><div class="line">xhr.timeout = 1000 * x;      // 超时 / ms</div><div class="line">xhr.onreadystatechange = state_change_call;</div><div class="line">xhr.open(type, url, true); </div><div class="line">xhr.send(null);</div><div class="line">function state_change_call()&#123;</div><div class="line">    //回调</div><div class="line">&#125;</div><div class="line">// server</div><div class="line">// 建立长连接，设置content-type的值为multipart/mixed或multipart/x-mixed-replace</div><div class="line">//  例:multipart/x-mixed-replace;boundary=&quot;string类型数据&quot;</div></pre></td></tr></table></figure>
+<h3 id="1-4-其他"><a href="#1-4-其他" class="headerlink" title="1.4 其他"></a>1.4 其他</h3><p>其它还有捎带轮训（pingybakc polling）、第三方插件（flashSocket）等。</p>
+<p>websocket应用已经很成熟，但是考虑到一些老浏览器不支持此特性，未了兼容性，也有用以上的一些方案。成熟的WebSocket组件，大多也会提供降级方案，采用comet技术等。</p>
+<h2 id="2-WebSocket"><a href="#2-WebSocket" class="headerlink" title="2 WebSocket"></a>2 WebSocket</h2><blockquote>
+<p>WebSocket是全双工、双向、单套接字连接。</p>
+</blockquote>
+<p>说得形象点，我们可以认为WebSocket是Http连接的升级版本。</p>
+<h3 id="2-1-WebSocket-Protocol"><a href="#2-1-WebSocket-Protocol" class="headerlink" title="2.1 WebSocket Protocol"></a>2.1 WebSocket Protocol</h3><p>一旦建立起连接，客户端不需要再次发起，也能及时接收到服务器端数据，websocket相比Http通信更加简洁、高效、直观，它解决了HTTP通信的许多不足，能够互补HTTP的欠缺的特性，这就是吸引我们去使用的理由。</p>
+<p>判断支持原生WebSocket：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">if(window.WebSocket)&#123; </div><div class="line">   // 支持WebSocket  </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>WebSocket连接其实也是基于HTTP请求，那如何区分这两者呢？<br>很简单，只要在请求头里加入一个Upgrade的请求头，例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">//</div><div class="line">// -client </div><div class="line">// 浏览器发送一个请求到服务器，表示它想把HTTP协议转为WebSocket。客户端通过更新头字段（Upgrade header）实现了这个目的</div><div class="line">GET /echo HTTP/1.1</div><div class="line">Sec-WebSocket-Key: xx</div><div class="line">Sec-WebSocket-Verson: xx </div><div class="line">Connection: Upgrade</div><div class="line">Upgrade: websocket</div><div class="line">//</div><div class="line">// -server </div><div class="line">// 如果服务器识别WebSocket协议，它通过Upgrade header接受协议转换</div><div class="line">Connection:Upgrade</div><div class="line">Sec-WebSocket-Accept: xx</div><div class="line">Upgrade: WebSocket</div></pre></td></tr></table></figure>
+<p>此时HTTP连接会被基于TCP/IP连接的WebSocket连接所取代。WebSocket连接默认使用和HTTP(80)或者HTTPS(443)一样的端口，当然，你可以用其它端口。<br>WebSocket为了完成握手，服务器必须响应一个键值，服务器通过这个键值才能知道是WebSocket连接协议。那么这个键值如何计算的呢？响应函数从请求头的Sec-WebSocket-Key取值，然后根据这个值通过SHA1计算出键值并返回其base64字段串。建立WebSocket连接握手成功后，服务端就会一直以frame形式往客户端响应数据。帧格式此处不再敖述。</p>
+<h2 id="2-2-API"><a href="#2-2-API" class="headerlink" title="2.2 API"></a>2.2 API</h2><h3 id="2-2-1-WebSocket构造"><a href="#2-2-1-WebSocket构造" class="headerlink" title="2.2.1  WebSocket构造"></a>2.2.1  WebSocket构造</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">var url =&quot;&quot;;                    //URL地址</div><div class="line">var protocols = [];              //协议数组</div><div class="line">var ws = new WebSocket(url, protocols);    //构造函数</div></pre></td></tr></table></figure>
+<p>WebSocket(url, protocols)构造函数接受一个或两个参数。</p>
+<p>第一个参数url指定要连接的url。这个url可能是ws:或wss:，类似于HTTP请求的http:或者https:。WebSocket也提供了传输层安全性的连接( TLS/SSL)。</p>
+<p>第二个是一个协议数组，非必填项。如果它是一个字符串,它相当于一个数组组成的字符串，如果省略,它相当于空数组。其实在protocols参数指定的协议基本有三种类型：一、注册协议，向注册管理实体IANA正式注册的标准协议；二、开放协议，广泛使用的标准化协议，如XMPP或STOMP；三、自定义协议，自己编写并和WebSocket一起使用的协议。例如，protocols有可能是简单对象访问协议( SOAP )或其它自定义协议。</p>
+<p>当创建的WebSocket构造函数被调用时，会先解析URL参数，获取主机、端口、资源名称、安全。如果操作失败，抛出SyntaxError异常并终止操作。如果存在一个安全组件，例如套接字安全协议https,但分析出这个安全是false，例如无效的安全证书，那么抛出一个SecurityError异常。如果protocols协议数组或字符串中Sec-WebSocket-Protocol头字段定义的值超过一次不匹配，则抛出一个SyntaxError异常并中止。此时返回这个WebSocket的对象，但是后台依然会继续这些操作。
+　　</p>
+<h3 id="2-2-2-事件"><a href="#2-2-2-事件" class="headerlink" title="2.2.2 事件"></a>2.2.2 事件</h3><p>WebSocket对象存在4个事件，包括open、message、error、close。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">var socket = new WebSocket(&apos;ws://game.example.com:12010/updates&apos;);</div><div class="line">// 打开事件</div><div class="line">socket.onopen = function (e) &#123;</div><div class="line">    console.log(&quot;websocket 打开&quot;);</div><div class="line">&#125;;</div><div class="line">// 消息事件</div><div class="line">socket.binaryType = &quot;&quot;;</div><div class="line">socket.onmessage = function (e) &#123;</div><div class="line">    if (typeof e.data === &quot;string&quot;)&#123;</div><div class="line">        console.log(&quot;处理文本格式数据.&quot;) ;</div><div class="line">        if (event.data == &apos;on&apos;) &#123;</div><div class="line">            console.log(&quot;处理当数据等于on时.&quot;) ;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;;</div><div class="line">//error 事件</div><div class="line">socket.onerror = function(e)&#123;</div><div class="line">    console.log(&quot;正在处理错误&quot;);</div><div class="line">&#125;</div><div class="line">//关闭事件</div><div class="line">socket.onclose = function(e)&#123;</div><div class="line">    console.log(&quot;连接关闭&quot;);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>另外，close事件有三个属性，可用于处理和恢复：wasClean、code、reason。wasClean属性为布尔类型，表示是否顺利连接，如果接收到一个正常的close帧，则该属性为true，如果因为其它原因关闭，该属性为false。code和reason分别代表错误代码和关闭原因。</p>
+<h3 id="2-2-3-方法"><a href="#2-2-3-方法" class="headerlink" title="2.2.3 方法"></a>2.2.3 方法</h3><p>WebSocket有两个方法：send()和close()。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">// 发送消息</div><div class="line">var msg =&quot;&quot;;           //定义消息</div><div class="line">socket.onopen = function(e)&#123;</div><div class="line">    socket.send(msg);      //发送</div><div class="line">&#125;</div><div class="line"></div><div class="line">//或者</div><div class="line">function sendHandler(e)&#123;</div><div class="line">    if (ws.readState === WebSocket.Open)&#123;</div><div class="line">        socket.send(msg);</div><div class="line">    &#125; else &#123; &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">// 关闭方法</div><div class="line">var code = &quot;&quot;;    //定义代码</div><div class="line">var reason = &quot;&quot;;  //关闭原因</div><div class="line">socket.close(code,reason);</div></pre></td></tr></table></figure>
+<h3 id="2-2-4-状态"><a href="#2-2-4-状态" class="headerlink" title="2.2.4 状态"></a>2.2.4 状态</h3><p>readState，用于报告连接状态。</p>
+<table>
+<thead>
+<tr>
+<th>常量</th>
+<th>值</th>
+<th>状态</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>WebSocket.CONNECTION</td>
+<td>0</td>
+<td>正在握手请求中，还未完成连接</td>
+</tr>
+<tr>
+<td>WebSocket.OPEN</td>
+<td>1</td>
+<td>连接已打开</td>
+</tr>
+<tr>
+<td>WebSocket.CLOSING</td>
+<td>2</td>
+<td>连接正在关闭</td>
+</tr>
+<tr>
+<td>WebSocket.CLOSED</td>
+<td>3</td>
+<td>连接已关闭</td>
+</tr>
+</tbody>
+</table>
+<p>从上表可以知道WebSocket的生命周期。</p>
+<p>还有一个bufferAmount，这个用于检查发往服务器的缓冲数量。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">// -client</div><div class="line">var info_size= 1024 * 100;    //传输数据长度</div><div class="line">var _url =&quot;&quot;;            //WebSocket服务器地址</div><div class="line">var ws = new WebSocket(_url);</div><div class="line">ws.onopen = function()&#123;</div><div class="line">    setInterval(function()&#123;</div><div class="line">        if(ws.bufferedAmount &lt; info_size)&#123;</div><div class="line">            //do something</div><div class="line">        &#125;</div><div class="line">    &#125;,1000);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="3-其他"><a href="#3-其他" class="headerlink" title="3 其他"></a>3 其他</h2><p>SSE ( Server-Send Event )，这个不属于WebSocket，他也属于HTML的新特性，它加强了comet技术。SSE主要功能是向客户端广播或推送消息，如果仅需求服务器单向推送，SSE就很适合，经常被用于推送新闻、天气。</p>
+
+    
+  </div>
+</article>
+
+
+   
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">扫一扫，支持lieque</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="http://oixxlw0bj.bkt.clouddn.com/2.pic.jpg" alt="">
+          </li>
+        
+          <li class="item">
+            <img src="http://oixxlw0bj.bkt.clouddn.com/3.pic.png" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2016/08/03/git使用心得/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="show pull-right" href="/2016/12/29/F12调试技巧/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/atom.xml"
+              rel="noopener noreferrer"
+              target="_blank"
+              >
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+
+    
+  <section class="duoshuo-comments">
+    <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="post-html5 websocket梳理" 
+      data-title="html5 websocket梳理" data-url="http://yoursite.com/2016/10/11/html5 websocket梳理/index.html"></div>
+    <!-- 多说评论框 end -->
+  </section>
+
+
+
+
+  <script type="text/javascript">
+  var duoshuoQuery = {short_name:"lieque"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+     || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+  </script>
+
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>
